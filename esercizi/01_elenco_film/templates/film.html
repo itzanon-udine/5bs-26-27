@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Archivio Film</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background: #f9f9f9; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .btn { padding: 10px 20px; background: #007BFF; color: white; border: none; cursor: pointer; border-radius: 5px; font-size: 14px; }
+        .msg { color: #28a745; background: #d4edda; padding: 10px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>🎬 Archivio Film - DB</h2>
+
+        <form method="POST" action="/carica-sql">
+            <button type="submit" class="btn">🔄 Inizializza / Resetta DB da SQL</button>
+        </form>
+
+        {% if messaggio %}
+            <p class="msg">{{ messaggio }}</p>
+        {% endif %}
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titolo</th>
+                    <th>Regista</th>
+                    <th>Anno</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for f in elenco_film %}
+                <tr>
+                    <td>{{ f['id'] }}</td>
+                    <td><b>{{ f['titolo'] }}</b></td>
+                    <td>{{ f['regista'] }}</td>
+                    <td>{{ f['anno'] }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">Nessun dato nel DB. Clicca sul pulsante sopra!</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
